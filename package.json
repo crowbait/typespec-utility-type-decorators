@@ -1,6 +1,6 @@
 {
   "name": "typespec-utility-type-decorators",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "A TypeSpec library providing decorators to mimic TypeScript utility types",
   "homepage": "https://github.com/crowbait/typespec-utility-type-decorators#readme",
   "bugs": "https://github.com/crowbait/typespec-utility-type-decorators/issues",

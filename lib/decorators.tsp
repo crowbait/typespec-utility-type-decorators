@@ -1,3 +1,4 @@
+import "../dist/src/utility_omit.js";
 import "../dist/src/utility_partial.js";
 
 using TypeSpec.Reflection;
@@ -5,12 +6,16 @@ using TypeSpec.Reflection;
 namespace TypespecUtilityTypeDecorators;
 
 /**
- * Partial
+ * Removes properties of the Model with the given keys.
+ * @param keys The Model property keys to be removed.
+ */
+extern dec omit(target: Model, ...keys: valueof string[]);
+
+/**
  * Sets all properties of the Model to be optional.
  */
 extern dec partial(target: Model);
 /**
- * PartialKeys
  * Sets properties of the Model with the given keys to be optional.
  * @param keys The Model property keys to be made optional.
  */

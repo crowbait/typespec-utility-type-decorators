@@ -4,33 +4,17 @@ import {reportDiagnostic} from "./lib.js";
 export const namespace = "TypespecUtilityTypeDecorators";
 
 /**
- * Sets all properties of the Model to be optional.
+ * Removes properties of the Model with the given keys.
  * @param context Decorator context.
  * @param target Decorator target. Must be a Model.
+ * @param keys The Model property keys to be removed.
  */
-export const $partial = (
-  context: DecoratorContext,
-  target: Model
-): void => {
-  if (!validateDecoratorTarget(context, target, '@partial', 'Model')) return;
-  for (const [key, prop] of target.properties) {
-    prop.optional = true;
-    target.properties.set(key, prop);
-  }
-};
-
-/**
- * Sets properties of the Model with the given keys to be optional.
- * @param context Decorator context.
- * @param target Decorator target. Must be a Model.
- * @param keys The Model property keys to be made optional.
- */
-export const $partialKeys = (
+export const $omit = (
   context: DecoratorContext,
   target: Model,
   ...keys: string[]
 ): void => {
-  if (!validateDecoratorTarget(context, target, '@partialKeys', 'Model')) return;
+  if (!validateDecoratorTarget(context, target, '@omit', 'Model')) return;
   
   // checks for no keys
   if (!keys || keys.length === 0) reportDiagnostic(context.program, {
@@ -54,7 +38,6 @@ export const $partialKeys = (
   });
 
   for (const [key, prop] of target.properties) {
-    if (keys.includes(prop.name)) prop.optional = true;
-    target.properties.set(key, prop);
+    if (keys.includes(prop.name)) target.properties.delete(key);
   }
 };
