@@ -1,20 +1,21 @@
-import { createTypeSpecLibrary, paramMessage } from "@typespec/compiler";
+import {createTypeSpecLibrary, paramMessage} from "@typespec/compiler";
 
 export const $lib = createTypeSpecLibrary({
   name: "typespec-utility-type-decorators",
-  // Define diagnostics for the library. This will provide a typed API to report diagnostic as well as a auto doc generation.
   diagnostics: {
-    "banned-alternate-name": {
+    "no-key": {
       severity: "error",
       messages: {
-        default: paramMessage`Banned alternate name "${"name"}".`,
+        default: `No key given.`,
       },
     },
-  },
-  // Defined state keys for storing metadata in decorator.
-  state: {
-    alternateName: { description: "alternateName" },
-  },
-});
+    "duplicate-key": {
+      severity: "warning",
+      messages: {
+        default: paramMessage`Duplicate key: '${"key"}'`,
+      },
+    },
+  }
+} as const);
 
 export const { reportDiagnostic, createDiagnostic, stateKeys: StateKeys } = $lib;
