@@ -1,12 +1,17 @@
-import "../dist/src/decorators.js";
+import "../dist/src/utility_partial.js";
 
 using TypeSpec.Reflection;
 
 namespace TypespecUtilityTypeDecorators;
 
 /**
- * __Example Decorator__
- * Provide an alternate name for an operation.
- * @param name The alternate name.
+ * Partial
+ * Sets all properties of the Model to be optional.
  */
-extern dec alternateName(target: Operation, name: valueof string);
+extern dec partial(target: Model);
+/**
+ * PartialKeys
+ * Sets properties of the Model with the given keys to be optional.
+ * @param keys The Model property keys to be made optional.
+ */
+extern dec partialKeys(target: Model, ...keys: valueof string[]);

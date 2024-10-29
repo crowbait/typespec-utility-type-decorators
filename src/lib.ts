@@ -1,4 +1,4 @@
-import {createTypeSpecLibrary, paramMessage} from "@typespec/compiler";
+import {createTypeSpecLibrary} from "@typespec/compiler";
 
 export const $lib = createTypeSpecLibrary({
   name: "typespec-utility-type-decorators",
@@ -12,10 +12,10 @@ export const $lib = createTypeSpecLibrary({
     "duplicate-key": {
       severity: "warning",
       messages: {
-        default: paramMessage`Duplicate key: '${"key"}'`,
+        default: `Duplicate key.`,
       },
     },
   }
 } as const);
 
-export const { reportDiagnostic, createDiagnostic, stateKeys: StateKeys } = $lib;
+export const {reportDiagnostic, createDiagnostic} = $lib;
