@@ -20,6 +20,10 @@ would suffice, upholding the DRY principle.
 
 ## Installation
 
+```sh
+npm i -D typespec-utility-type-decorators
+```
+
 ### Setup
 
 Import the package, `using` the library:
