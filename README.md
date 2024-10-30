@@ -10,9 +10,11 @@ would suffice, upholding the DRY principle.
 ## Content
 - [Installation & Setup](#installation)
 - [Usage](#usage)
-  - [Omit](#omit)
-  - [Partial](#partial)
+  - [Omit](#omit-typescript-equivalent)
+  - [Partial](#partial-typescript-equivalent)
     - [PartialKeys](#partialkeys)
+  - [Required](#required-typescript-equivalent)
+    - [RequiredKeys](#requiredkeys)
 
 ## Installation
 
@@ -75,6 +77,44 @@ model TransformedBook {...Book}
 /*
 {
   author?: string
+  title: string
+  read?: boolean
+}
+*/
+```
+
+### Required ([TypeScript Equivalent](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype))
+Sets all properties on a model to be required (not optional). Opposite of [Partial](#partial-typescript-equivalent).
+```ts
+model Book {
+  author?: string,
+  title: string
+}
+
+@required
+model TransformedBook {...Book}
+/*
+{
+  author: string
+  title: string
+}
+*/
+```
+
+#### RequiredKeys
+Sets properties of the Model with the given keys to be required (not optional). Opposite of [PartialKeys](#partialkeys)
+```ts
+model Book {
+  author?: string,
+  title: string,
+  read?: boolean
+}
+
+@partialKeys("author")
+model TransformedBook {...Book}
+/*
+{
+  author: string
   title: string
   read?: boolean
 }

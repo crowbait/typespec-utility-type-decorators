@@ -57,4 +57,18 @@ describe("decorators", () => {
     );
     checkNoAndDuplicateKeys('@partialKeys');
   })
+
+  describe("@required", () => {
+    it("set all properties required on a model",
+      () => checkModelProperties(`@required`, (props) => props.forEach((x) => strictEqual(x.optional, false)))
+    );
+  });
+
+  describe("@requiredKeys", () => {
+    const keys = ["prop1", "prop2"];
+    it("set given properties required on a model",
+      () => checkModelProperties(keyArgsFromArr("@requiredKeys", keys),  (props) => props.forEach((x) => {if (keys.includes(x.name)) strictEqual(x.optional, false)}))
+    );
+    checkNoAndDuplicateKeys('@requiredKeys');
+  })
 });
