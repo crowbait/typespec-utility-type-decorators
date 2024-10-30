@@ -34,7 +34,7 @@ export const $partialKeys = (
   
   // checks for no keys
   if (!keys || keys.length === 0) reportDiagnostic(context.program, {
-    code: "no-key",
+    code: "no-keys",
     target: context.decoratorTarget
   });
   

@@ -3,10 +3,10 @@ import {createTypeSpecLibrary} from "@typespec/compiler";
 export const $lib = createTypeSpecLibrary({
   name: "typespec-utility-type-decorators",
   diagnostics: {
-    "no-key": {
+    "no-keys": {
       severity: "error",
       messages: {
-        default: `No key given.`,
+        default: `No keys given.`,
       },
     },
     "duplicate-key": {
