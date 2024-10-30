@@ -44,7 +44,6 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && npm run format && npm version patch"
   },
-  "private": true,
   "peerDependencies": {
     "@typespec/compiler": "^0.61.2"
   }
