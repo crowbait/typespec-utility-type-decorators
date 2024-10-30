@@ -13,6 +13,7 @@ would suffice, upholding the DRY principle.
   - [Omit](#omit-typescript-equivalent)
   - [Partial](#partial-typescript-equivalent)
     - [PartialKeys](#partialkeys)
+  - [Pick](#pick-typescript-equivalent)
   - [Required](#required-typescript-equivalent)
     - [RequiredKeys](#requiredkeys)
 
@@ -79,6 +80,23 @@ model TransformedBook {...Book}
   author?: string
   title: string
   read?: boolean
+}
+*/
+```
+
+### Pick ([TypeScript Equivalent](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys))
+Omits all but the given keys from a model. Opposite of [Omit](#omit-typescript-equivalent).
+```ts
+model Book {
+  author: string,
+  title: string
+}
+
+@pick("author")
+model TransformedBook {...Book}
+/*
+{
+  author: string
 }
 */
 ```

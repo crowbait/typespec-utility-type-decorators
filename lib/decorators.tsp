@@ -1,5 +1,6 @@
 import "../dist/src/utility_omit.js";
 import "../dist/src/utility_partial.js";
+import "../dist/src/utility_pick.js";
 import "../dist/src/utility_required.js";
 
 using TypeSpec.Reflection;
@@ -21,6 +22,12 @@ extern dec partial(target: Model);
  * @param keys The Model property keys to be made optional.
  */
 extern dec partialKeys(target: Model, ...keys: valueof string[]);
+
+/**
+ * Omits all but the given keys from a model.
+ * @param keys The Model property keys to be kept, removing all others.
+ */
+extern dec pick(target: Model, ...keys: valueof string[]);
 
 /**
  * Sets all properties of the Model to be required.

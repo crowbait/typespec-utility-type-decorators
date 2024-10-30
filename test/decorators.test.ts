@@ -58,6 +58,14 @@ describe("decorators", () => {
     checkNoAndDuplicateKeys('@partialKeys');
   })
 
+  describe("@pick", () => {
+    const keys = ["prop1", "prop2"];
+    it("remove all other properties from model",
+      () => checkModelProperties(keyArgsFromArr("@pick", keys), (props) => hasExactProps(props, allProps.filter((x) => keys.includes(x))))
+    )
+    checkNoAndDuplicateKeys('@pick');
+  })
+
   describe("@required", () => {
     it("set all properties required on a model",
       () => checkModelProperties(`@required`, (props) => props.forEach((x) => strictEqual(x.optional, false)))
