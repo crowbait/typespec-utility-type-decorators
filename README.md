@@ -8,6 +8,7 @@ This is meant to help reduce the need to rewrite Models if simple transformation
 would suffice, upholding the DRY principle.
 
 ## Content
+
 - [Installation & Setup](#installation)
 - [Usage](#usage)
   - [Omit](#omit-typescript-equivalent)
@@ -19,9 +20,10 @@ would suffice, upholding the DRY principle.
 
 ## Installation
 
-
 ### Setup
+
 Import the package, `using` the library:
+
 ```ts
 import "typespec-utility-type-decorators";
 using TypespecUtilityTypeDecorators;
@@ -30,7 +32,9 @@ using TypespecUtilityTypeDecorators;
 ## Usage
 
 ### Omit ([TypeScript Equivalent](https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys))
+
 Removes properties of the Model with the given keys.
+
 ```ts
 model Book {
   author: string,
@@ -47,7 +51,9 @@ model TransformedBook {...Book}
 ```
 
 ### Partial ([TypeScript Equivalent](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype))
+
 Sets all properties on a model to be optional.
+
 ```ts
 model Book {
   author: string,
@@ -65,7 +71,9 @@ model TransformedBook {...Book}
 ```
 
 #### PartialKeys
+
 Sets properties of the Model with the given keys to be optional.
+
 ```ts
 model Book {
   author: string,
@@ -85,7 +93,9 @@ model TransformedBook {...Book}
 ```
 
 ### Pick ([TypeScript Equivalent](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys))
+
 Omits all but the given keys from a model. Opposite of [Omit](#omit-typescript-equivalent).
+
 ```ts
 model Book {
   author: string,
@@ -102,7 +112,9 @@ model TransformedBook {...Book}
 ```
 
 ### Required ([TypeScript Equivalent](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype))
+
 Sets all properties on a model to be required (not optional). Opposite of [Partial](#partial-typescript-equivalent).
+
 ```ts
 model Book {
   author?: string,
@@ -120,7 +132,9 @@ model TransformedBook {...Book}
 ```
 
 #### RequiredKeys
+
 Sets properties of the Model with the given keys to be required (not optional). Opposite of [PartialKeys](#partialkeys)
+
 ```ts
 model Book {
   author?: string,

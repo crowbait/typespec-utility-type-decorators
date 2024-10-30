@@ -1,5 +1,9 @@
-import {DecoratorContext, Model, validateDecoratorTarget} from "@typespec/compiler";
-import {reportDiagnostic} from "./lib.js";
+import {
+  DecoratorContext,
+  Model,
+  validateDecoratorTarget,
+} from "@typespec/compiler";
+import { reportDiagnostic } from "./lib.js";
 
 export const namespace = "TypespecUtilityTypeDecorators";
 
@@ -8,11 +12,8 @@ export const namespace = "TypespecUtilityTypeDecorators";
  * @param context Decorator context.
  * @param target Decorator target. Must be a Model.
  */
-export const $partial = (
-  context: DecoratorContext,
-  target: Model
-): void => {
-  if (!validateDecoratorTarget(context, target, '@partial', 'Model')) return;
+export const $partial = (context: DecoratorContext, target: Model): void => {
+  if (!validateDecoratorTarget(context, target, "@partial", "Model")) return;
   for (const [key, prop] of target.properties) {
     prop.optional = true;
     target.properties.set(key, prop);
@@ -30,14 +31,16 @@ export const $partialKeys = (
   target: Model,
   ...keys: string[]
 ): void => {
-  if (!validateDecoratorTarget(context, target, '@partialKeys', 'Model')) return;
-  
+  if (!validateDecoratorTarget(context, target, "@partialKeys", "Model"))
+    return;
+
   // checks for no keys
-  if (!keys || keys.length === 0) reportDiagnostic(context.program, {
-    code: "no-keys",
-    target: context.decoratorTarget
-  });
-  
+  if (!keys || keys.length === 0)
+    reportDiagnostic(context.program, {
+      code: "no-keys",
+      target: context.decoratorTarget,
+    });
+
   // checks for duplicate keys
   const checkedKeys: string[] = [];
   let duplicateKeyIndex = -1;
@@ -48,10 +51,11 @@ export const $partialKeys = (
     }
     checkedKeys.push(keys[i]);
   }
-  if (duplicateKeyIndex !== -1) reportDiagnostic(context.program, {
-    code: "duplicate-key",
-    target: context.getArgumentTarget(duplicateKeyIndex)!
-  });
+  if (duplicateKeyIndex !== -1)
+    reportDiagnostic(context.program, {
+      code: "duplicate-key",
+      target: context.getArgumentTarget(duplicateKeyIndex)!,
+    });
 
   for (const [key, prop] of target.properties) {
     if (keys.includes(prop.name)) prop.optional = true;

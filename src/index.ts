@@ -1,1 +1,1 @@
-export {$lib} from "./lib.js";
+export { $lib } from "./lib.js";

@@ -1,4 +1,4 @@
-import {createTypeSpecLibrary} from "@typespec/compiler";
+import { createTypeSpecLibrary } from "@typespec/compiler";
 
 export const $lib = createTypeSpecLibrary({
   name: "typespec-utility-type-decorators",
@@ -15,7 +15,7 @@ export const $lib = createTypeSpecLibrary({
         default: `Duplicate key.`,
       },
     },
-  }
+  },
 } as const);
 
-export const {reportDiagnostic, createDiagnostic} = $lib;
+export const { reportDiagnostic, createDiagnostic } = $lib;
