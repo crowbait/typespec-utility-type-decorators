@@ -3,7 +3,11 @@ import {
   Model,
   validateDecoratorTarget,
 } from "@typespec/compiler";
-import { reportDiagnostic } from "./lib.js";
+import {
+  assertKeys,
+  assertKeysKnown,
+  assertKeysNoDuplicates,
+} from "./standard_assertions.js";
 
 export const namespace = "TypespecUtilityTypeDecorators";
 
@@ -34,28 +38,9 @@ export const $partialKeys = (
   if (!validateDecoratorTarget(context, target, "@partialKeys", "Model"))
     return;
 
-  // checks for no keys
-  if (!keys || keys.length === 0)
-    reportDiagnostic(context.program, {
-      code: "no-keys",
-      target: context.decoratorTarget,
-    });
-
-  // checks for duplicate keys
-  const checkedKeys: string[] = [];
-  let duplicateKeyIndex = -1;
-  for (let i = 0; i < keys.length; i++) {
-    if (checkedKeys.includes(keys[i])) {
-      duplicateKeyIndex = i;
-      break;
-    }
-    checkedKeys.push(keys[i]);
-  }
-  if (duplicateKeyIndex !== -1)
-    reportDiagnostic(context.program, {
-      code: "duplicate-key",
-      target: context.getArgumentTarget(duplicateKeyIndex)!,
-    });
+  assertKeys(context, keys);
+  assertKeysNoDuplicates(context, keys);
+  assertKeysKnown(context, target, keys);
 
   for (const [key, prop] of target.properties) {
     if (keys.includes(prop.name)) prop.optional = true;

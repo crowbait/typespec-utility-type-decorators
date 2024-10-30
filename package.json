@@ -1,6 +1,6 @@
 {
   "name": "typespec-utility-type-decorators",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A TypeSpec library providing decorators to mimic TypeScript utility types",
   "homepage": "https://github.com/crowbait/typespec-utility-type-decorators#readme",
   "bugs": "https://github.com/crowbait/typespec-utility-type-decorators/issues",
@@ -33,7 +33,7 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "build": "rimraf dist && tsc && npm run build:tsp",
+    "build": "npm run format && rimraf dist && tsc && npm run build:tsp",
     "watch": "tsc --watch",
     "build:tsp": "tsp compile . --warn-as-error --import @typespec/library-linter --no-emit",
     "test": "npm run build && node --test",
@@ -42,7 +42,7 @@
     "format": "prettier .  --write",
     "format:check": "prettier --check .",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run test && npm run format && npm version patch && npm run build"
+    "prepublishOnly": "npm run test && npm version patch && npm run build"
   },
   "peerDependencies": {
     "@typespec/compiler": "^0.61.2"

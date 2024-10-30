@@ -15,6 +15,7 @@ describe("decorators", () => {
 
   const keyArgsFromArr = (decoratorStub: string, arr: string[]): string =>
     `${decoratorStub}(${arr.map((x) => `"${x}"`).join(", ")})`;
+
   const hasExactProps = (
     props: Model["properties"],
     target: string[],
@@ -32,27 +33,41 @@ describe("decorators", () => {
     };
     check(test.Test.properties);
   };
-  const checkNoAndDuplicateKeys = async (
+
+  const checkKeys = async (
     decoratorStub: string,
+    noCheck?: Array<"no-keys" | "duplicate-key" | "unknown-key">,
   ): Promise<void> => {
-    it("emit error on no keys", async () => {
-      const diagnostics = await runner.diagnose(
-        `${decoratorStub} ${baseTestModel}`,
-      );
-      expectDiagnostics(diagnostics, {
-        code: "typespec-utility-type-decorators/no-keys",
-        severity: "error",
+    if (!noCheck || !noCheck.includes("no-keys"))
+      it("emit error on no keys", async () => {
+        const diagnostics = await runner.diagnose(
+          `${decoratorStub} ${baseTestModel}`,
+        );
+        expectDiagnostics(diagnostics, {
+          code: "typespec-utility-type-decorators/no-keys",
+          severity: "error",
+        });
       });
-    });
-    it("emit warning on duplicate keys", async () => {
-      const diagnostics = await runner.diagnose(
-        `@partialKeys("prop1", "prop1") ${baseTestModel}`,
-      );
-      expectDiagnostics(diagnostics, {
-        code: "typespec-utility-type-decorators/duplicate-key",
-        severity: "warning",
+    if (!noCheck || !noCheck.includes("duplicate-key"))
+      it("emit warning on duplicate keys", async () => {
+        const diagnostics = await runner.diagnose(
+          `${decoratorStub}("prop1", "prop1") ${baseTestModel}`,
+        );
+        expectDiagnostics(diagnostics, {
+          code: "typespec-utility-type-decorators/duplicate-key",
+          severity: "warning",
+        });
       });
-    });
+    if (!noCheck || !noCheck.includes("unknown-key"))
+      it("emit error on unknown keys", async () => {
+        const diagnostics = await runner.diagnose(
+          `${decoratorStub}("unknown-key") ${baseTestModel}`,
+        );
+        expectDiagnostics(diagnostics, {
+          code: "typespec-utility-type-decorators/unknown-key",
+          severity: "error",
+        });
+      });
   };
 
   describe("@omit", () => {
@@ -64,7 +79,7 @@ describe("decorators", () => {
           allProps.filter((x) => !keys.includes(x)),
         ),
       ));
-    checkNoAndDuplicateKeys("@omit");
+    checkKeys("@omit", ["unknown-key"]);
   });
 
   describe("@partial", () => {
@@ -80,7 +95,7 @@ describe("decorators", () => {
       checkModelProperties(keyArgsFromArr("@partialKeys", keys), (props) =>
         props.forEach((x) => strictEqual(x.optional, keys.includes(x.name))),
       ));
-    checkNoAndDuplicateKeys("@partialKeys");
+    checkKeys("@partialKeys");
   });
 
   describe("@pick", () => {
@@ -92,7 +107,7 @@ describe("decorators", () => {
           allProps.filter((x) => keys.includes(x)),
         ),
       ));
-    checkNoAndDuplicateKeys("@pick");
+    checkKeys("@pick");
   });
 
   describe("@required", () => {
@@ -110,6 +125,6 @@ describe("decorators", () => {
           if (keys.includes(x.name)) strictEqual(x.optional, false);
         }),
       ));
-    checkNoAndDuplicateKeys("@requiredKeys");
+    checkKeys("@requiredKeys");
   });
 });

@@ -15,6 +15,12 @@ export const $lib = createTypeSpecLibrary({
         default: `Duplicate key.`,
       },
     },
+    "unknown-key": {
+      severity: "error",
+      messages: {
+        default: `Key not found in target model.`,
+      },
+    },
   },
 } as const);
 
